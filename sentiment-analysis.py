@@ -59,6 +59,9 @@ model_bert.fit(X_train_bert, y_train, epochs=5, batch_size=64, validation_split=
 # Modelin değerlendirilmesi
 y_pred_bert = (model_bert.predict(X_test_bert) > 0.5).astype("int32")
 
+
+
+
 # Metrikler
 print("\nBERT Confusion Matrix:\n", confusion_matrix(y_test, y_pred_bert))
 print("\nBERT Classification Report:\n", classification_report(y_test, y_pred_bert))
