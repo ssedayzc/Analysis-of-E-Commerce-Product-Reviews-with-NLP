@@ -69,3 +69,27 @@ y_pred_bert = (model_bert.predict(X_test_bert) > 0.5).astype("int32")
 print("\nBERT Confusion Matrix:\n", confusion_matrix(y_test, y_pred_bert))
 print("\nBERT Classification Report:\n", classification_report(y_test, y_pred_bert))
 print("\nBERT Accuracy:", accuracy_score(y_test, y_pred_bert))
+
+
+
+
+# LSTM Modeli
+model_lstm = Sequential()
+model_lstm.add(Embedding(max_words, 64, input_length=max_len))
+model_lstm.add(LSTM(128, dropout=0.2, recurrent_dropout=0.2))
+model_lstm.add(Dense(1, activation='sigmoid'))
+
+model_lstm.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model_lstm.summary()
+
+# LSTM Modelini Eğitme
+model_lstm.fit(X_train_pad, y_train, epochs=5, batch_size=32, validation_split=0.1)
+
+
+# LSTM Modeli Değerlendirme
+y_pred_lstm = (model_lstm.predict(X_test_pad) > 0.5).astype("int32")
+
+# Metrikler
+print("\nLSTM Confusion Matrix:\n", confusion_matrix(y_test, y_pred_lstm))
+print("\nLSTM Classification Report:\n", classification_report(y_test, y_pred_lstm))
+print("\nLSTM Accuracy:", accuracy_score(y_test, y_pred_lstm))
