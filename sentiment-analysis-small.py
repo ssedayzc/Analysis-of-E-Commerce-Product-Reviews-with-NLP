@@ -85,12 +85,32 @@ model_lstm.summary()
 # LSTM Modelini Eğitme
 model_lstm.fit(X_train_pad, y_train, epochs=5, batch_size=32, validation_split=0.1)
 
+#eğitim işlemi sırasında doğruluk değerlerini kontrol etme
+history = model_bert.fit(X_train_bert, y_train, epochs=5, batch_size=32, validation_split=0.1)
+print("Eğitim Doğruluk Değerleri:", history.history['accuracy'])
+print("Doğrulama Doğruluk Değerleri:", history.history['val_accuracy'])
+
+
+# Test seti üzerinde modelin performansını değerlendirme
+loss, accuracy = model_lstm.evaluate(X_test_pad, y_test)
+print(f'Test Loss: {loss}, Test Accuracy: {accuracy}')
 
 # LSTM Modeli Değerlendirme
 y_pred_lstm = (model_lstm.predict(X_test_pad) > 0.5).astype("int32")
+
 
 # Metrikler
 print("\nLSTM Confusion Matrix:\n", confusion_matrix(y_test, y_pred_lstm))
 print("\nLSTM Classification Report:\n", classification_report(y_test, y_pred_lstm))
 print("\nLSTM Accuracy:", accuracy_score(y_test, y_pred_lstm))
+
+# Yeni örnekleri tahmin etme
+new_texts = ['Excellent movie!', 'Terrible experience.']
+new_texts_seq = tokenizer.texts_to_sequences(new_texts)
+new_texts_pad = pad_sequences(new_texts_seq, maxlen=max_len)
+predictions = model_lstm.predict(new_texts_pad)
+
+for i, text in enumerate(new_texts):
+    sentiment = 'Positive' if predictions[i] > 0.5 else 'Negative'
+    print(f'Text: {text}, Predicted Sentiment: {sentiment}')
 
