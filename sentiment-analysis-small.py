@@ -93,3 +93,4 @@ y_pred_lstm = (model_lstm.predict(X_test_pad) > 0.5).astype("int32")
 print("\nLSTM Confusion Matrix:\n", confusion_matrix(y_test, y_pred_lstm))
 print("\nLSTM Classification Report:\n", classification_report(y_test, y_pred_lstm))
 print("\nLSTM Accuracy:", accuracy_score(y_test, y_pred_lstm))
+
