@@ -66,3 +66,34 @@ y_pred_bert = (model_bert.predict(X_test_bert) > 0.5).astype("int32")
 print("\nBERT Confusion Matrix:\n", confusion_matrix(y_test, y_pred_bert))
 print("\nBERT Classification Report:\n", classification_report(y_test, y_pred_bert))
 print("\nBERT Accuracy:", accuracy_score(y_test, y_pred_bert))
+
+
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon') 
+
+# Duygu Analizi
+sia = SentimentIntensityAnalyzer()
+
+# Veriyi büyük harfe çevirme işlemi (Yukarıdaki kodun işlevsiz olduğunu düşünüyorsanız, bunu atlayabilirsiniz)
+yorum_veriseti["Metin"] = yorum_veriseti["Metin"].apply(lambda x: x.upper())
+
+# Duygu analizi skorlarını hesaplayın
+yorum_veriseti["polarity_score"] = yorum_veriseti["Metin"].apply(lambda x: sia.polarity_scores(x)["compound"])
+
+# Duygu Modellemesi
+yorum_veriseti["sentiment_label"] = yorum_veriseti["polarity_score"].apply(lambda score: "pos" if score > 0 else "neg")
+
+# Pozitif-negatif dağılımı gösterme
+print(yorum_veriseti.groupby("sentiment_label")["Durum"].mean())
+
+# Gruplama işleminden sonra Sentiment Label sütununu Label Encoder kullanarak sayısallaştırma işlemi
+from sklearn.preprocessing import LabelEncoder
+
+label_encoder = LabelEncoder()
+yorum_veriseti["sentiment_label_encoded"] = label_encoder.fit_transform(yorum_veriseti["sentiment_label"])
+
+# X ve y'yi tanımlama
+X = yorum_veriseti['Metin']
+y = yorum_veriseti['sentiment_label_encoded']
