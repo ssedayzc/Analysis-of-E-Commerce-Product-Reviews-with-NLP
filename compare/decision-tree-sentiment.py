@@ -28,7 +28,7 @@ Xtf = vectorizer.fit_transform(df["Kök Metin"])
 y = df["Durum"]
 
 # Veriyi train ve test olarak böl
-train_x, test_x, train_y, test_y = train_test_split(Xtf, y, test_size=0.30, random_state=42)
+train_x, test_x, train_y, test_y = train_test_split(Xtf, y, test_size=0.2, random_state=42)
 
 # Modeli oluştur
 dt_model = DecisionTreeClassifier(random_state=42)
