@@ -40,6 +40,11 @@ for section in sections:
             # Her bir ürünü içeren etiketleri bul
             products = soup.find_all("div", class_="p-card-chldrn-cntnr card-border")
 
+
+            np.source.find("a",attrs={"class":"item"}).text
+
+
+
             # Her bir ürünü yazdır
             for product in products:
                 product_name = product.find("a", href=True).text
@@ -47,6 +52,7 @@ for section in sections:
 
             # Gerekirse, her bir alt sayfa arasında bir süre bekle (rate limiting önlemek için)
             time.sleep(1)
+
 
         except Exception as e:
             print(f"Hata oluştu: {e}")
