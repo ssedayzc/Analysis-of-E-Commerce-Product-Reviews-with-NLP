@@ -38,7 +38,7 @@ for section in sections:
             soup = bs(html, "lxml")
             
             # Her bir ürünü içeren etiketleri bul
-            products = soup.find_all("div", class_="p-card-chldrn-cntnr card-border")
+            products = soup.find_all("div", class_="p-card-chldrn-cntnr ")
 
             # Her bir ürünü yazdır
             for product in products:
