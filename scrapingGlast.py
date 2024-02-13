@@ -20,16 +20,33 @@ title = title_element.text.strip() if title_element else "Ürün adı bulunamad�
 print("Title:", title)
 
 # Fiyatı çek
-price_element = product_soup.find("div", class_="prc-dsc")
+price_element = product_soup.find("span", class_="prc-dsc")
 price = price_element.text.strip() if price_element else "Fiyat bulunamadı"
 print("Price:", price)
 
-# Yorumları çek
-reviews_elements = product_soup.find("div", class_="rnr-com-tx")
+"""# Yorumları çek
+reviews_elements = product_soup.find("div", class_="reviews-wrapper")
 if reviews_elements:
-    reviews_paragraphs = reviews_elements.findAll('p')
+    reviews_paragraphs = reviews_elements.findAll("p")
     reviews = '\n'.join([p.text.strip() for p in reviews_paragraphs])
     print("Reviews:", reviews)
 else:
-    print("Yorum bulunamadı")
+    print("Yorum bulunamadı")"""
+
+# Yorumları çek
+reviews_content = product_soup.find("div", class_="reviews-content")
+if reviews_content:
+    reviews = []
+    comment_texts = reviews_content.findAll("div", class_="comment-text")
+    for comment_text in comment_texts:
+        p_tags = comment_text.findAll("p")
+        for p_tag in p_tags:
+            reviews.append(p_tag.text.strip())
+    if reviews:
+        all_reviews = '\n'.join(reviews)
+        print("Reviews:", all_reviews)
+    else:
+        print("Yorum bulunamadı")
+else:
+    print("Yorum bölümü bulunamadı")
 
