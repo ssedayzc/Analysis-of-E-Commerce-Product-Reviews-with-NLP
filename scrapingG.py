@@ -63,7 +63,7 @@ for section in sections:
 #deneme2
 
 # Yorumları içeren etiketleri bul 
-reviews = product_soup.find_all("div", class_="reviews")
+#reviews = product_soup.find_all("div", class_="reviews")
 
 # Eğer en az bir yorum bulunuyorsa devam et
 if reviews:
