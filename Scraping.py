@@ -22,10 +22,10 @@ for i in urunler:
         detail = requests.get(link, headers=header)  # Detay sayfasına erişim
         
 
-        reviews_content = detay_soup.find("div", class_="reviews-content")
+        reviews_content = detay_soup.find("div", class_="pr-rnr-com")
         if reviews_content:
             reviews = []
-            comment_texts = reviews_content.findAll("div", class_="comment-text")
+            comment_texts = reviews_content.findAll("div", class_="rnr-com-tx")
             for comment_text in comment_texts:
                 p_tags = comment_text.findAll("p")
                 for p_tag in p_tags:
