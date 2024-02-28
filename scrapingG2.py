@@ -1,5 +1,5 @@
 import pandas as pd
-from pyTrendyol import Kategorı,Urun
+from pyTrendyol import Kategori,Urun
 
 
 """
@@ -18,7 +18,7 @@ from pyTrendyol import Kategorı,Urun
 
 
 
-kategori= Kategorı()
+kategori= Kategori()
 urun = Urun()
 
 
@@ -27,7 +27,7 @@ urun = Urun()
 kategoriler=["bilgisayar"]
 
 for kategori_ad in kategoriler:
-    urunler = kategori_ad.urunleri_ver(kategori_ad:kategori_ad, sayfa_tara:int=3)
+    urunler = kategori_ad.urunleri_ver(kategori_ad=kategori_ad, sayfa_tara=int(3))
 
 
 urun_detay=[]

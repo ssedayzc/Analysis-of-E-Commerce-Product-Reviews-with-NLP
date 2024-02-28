@@ -34,7 +34,20 @@ else:
     print("Yorum bulunamadı")"""
 
 # Yorumları çek
-reviews_content = product_soup.find("div", class_="reviews-content")
+
+urunler = product_soup.find_all("div",attrs={"class":"p-card-wrppr with-campaign-view"})
+for i in urunler:
+    urunlinkleri= i.find_all("div",attrs={"class":"p-card-chldrn-cntnr card-border"})
+    for j in urunlinkleri:
+        link = "https://www.trendyol.com" + j.a.get("href")
+        print(link + "\n")
+
+
+detail = requests.get(link, headers=headers)  # Detay sayfasına erişim
+print(f"Detay Erişim Response Code :{detail.status_code}")
+detay_soup = bs(detail.content, "lxml")
+
+reviews_content = detay_soup.find("div", class_="reviews-content")
 if reviews_content:
     reviews = []
     comment_texts = reviews_content.findAll("div", class_="comment-text")
