@@ -95,18 +95,14 @@ for link in df['Links']:
         comment_text = comment_div.find("div", class_="comment-text").find("p").text
         comments.append(comment_text)
 
-    #Burada yorumları ekrana yazıyor onun yerine comments değişkenini istediğiniz şekilde excel'e basabilirsiniz.
     for idx, comment in enumerate(comments, start=1):
         comments_data.append({"Yorum": f"{idx}: {comment}"})
 
 
-# comments_data listesini kullanarak DataFrame oluşturalım
-comments_df = pd.DataFrame(comments_data)
 
-# CSV dosyasına yazalım
+comments_df = pd.DataFrame(comments_data)
 comments_df.to_csv("trendyol_product_comments.csv", index=False)
 
-# Her şey tamamlandığında sürücüyü kapat
 driver.quit()
 
 print("CSV dosyası oluşturuldu: trendyol_product_comments.csv") 
